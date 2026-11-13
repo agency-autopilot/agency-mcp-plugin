@@ -17,7 +17,7 @@ From "they said yes" to a signed, paying client without leaving the chat. The ag
 7. **Paid → set the client up.** Signing creates the client in Agency Autopilot. Once paid, offer the next step: `client_access_link` so the client connects their own accounts, then Autopilot's set-up for that client.
 
 ## Stripe
-Payments need the agency's Stripe connected once (the dashboard's Agreements tab, Connect Stripe). Without it, the agreement can still be drafted, previewed, sent and signed.
+Payments need the agency's Stripe connected once. When an agreement says Stripe isn't connected, call `connect_stripe`: it returns a one-time link (30 minutes) the person opens to connect their own Stripe account on Stripe's page. No key or password is ever typed into the conversation. The dashboard's Agreements tab has the same button. Without Stripe, the agreement can still be drafted, previewed, sent and signed.
 
 ## Rules
 - The wording is a general standard agreement the agency can change ("Customize wording" on the Agreements tab). It is not legal advice; never say it is reviewed by a lawyer.

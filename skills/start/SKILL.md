@@ -17,6 +17,9 @@ description: First-run guide for Agency Autopilot (also called Agency MCP). Use 
      likeliest businesses, ask once what else the business has (Google Ads, Facebook or Instagram ads,
      Business Profile, website and whether it is WordPress, CRM) and connect what is missing, then create
      the one they pick with `create_client` (preview, then confirm) and close anything in its `client_setup`.
+   - Runs Google Ads for clients: offer the free waste scan (`ads_waste_scan`, the `google-ads-manager` skill).
+     It checks every account their Google login reaches, no client needed, and shows how much of the last
+     30 days' spend went to searches that never convert, with the fixes. A strong first thing to show.
    - A business they do not manage yet (a pitch): the `prospect-audit` skill — `audit_prospect` works
      with nothing connected; `create_prospect_report` publishes the page to send.
    - New to marketing, or wants Agency Autopilot to lead a client end to end: the `run-client` skill (`client_playbook`) — onboarding, tracking, website, ads and the weekly cycle, one previewed step at a time.

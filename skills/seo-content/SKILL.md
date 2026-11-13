@@ -1,6 +1,6 @@
 ---
 name: seo-content
-description: Drafts or optimises a page or blog post on a client's website — WordPress through the Agency Autopilot connector, or any other builder through the assistant's own connector for it — including the SEO title, meta description and JSON-LD schema. Use when asked to write a service page, landing page, location page, blog post, or to "optimise this page", "fix the title tags", "add schema", "rewrite the meta descriptions". Creates drafts and previews every change; publishes only when the person explicitly says to publish.
+description: Drafts or optimises a page or blog post on a client's website — WordPress through the Agency Autopilot connector, or any other builder through the assistant's own connector for it — including the SEO title, meta description and JSON-LD schema. Use when asked to write a service page, landing page, location page, blog post, or to "optimise this page", "fix the title tags", "add schema", "add an llms.txt", "rewrite the meta descriptions". Creates drafts and previews every change; publishes only when the person explicitly says to publish.
 ---
 
 # SEO content on a client's website
@@ -40,6 +40,9 @@ description: Drafts or optimises a page or blog post on a client's website — W
 
 ## After it goes live
 `site_health` with `refresh: true` and the page's `url`: confirm the visitor view shows the change (a cached copy says so), the form is still there, and Google can index it. A title change is checked on the live page by `wp_set_seo` itself; if it says the SEO plugin owns the title and the Bridge is old, the agency updates the Bridge (1.4.1+) once.
+
+## llms.txt (a small extra for AI assistants)
+`llms_txt_draft` drafts a plain-text /llms.txt for the client's site (what the business is, what it offers, where, and which page covers each service), from its set-up answers, its search plan and the home page, and shows any existing one. Edit it with the person, then `wp_llms_txt_set` puts it live on WordPress (preview, then confirm; needs the Bridge plugin 1.8.0+). Keep expectations honest: the site's own pages, a robots.txt that lets AI crawlers in, and a plain opening paragraph matter more.
 
 ## Output
 Show the draft or the diff, the SEO title and description with character counts, the schema type, and the exact confirmation you need. Then the link to the draft.

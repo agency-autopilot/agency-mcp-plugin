@@ -1,6 +1,6 @@
 ---
 name: crm-followup
-description: Works a client's HighLevel CRM through the Agency Autopilot connector — who is waiting on a reply, pipeline and won-work numbers for a period, appointments booked, cancelled or no-showed, finding contacts, and (when the agency has enabled writes) creating prospects, moving opportunities, adding notes and sending one email or SMS to one existing contact. Use for "who is waiting on us", "how many leads came in this month", "what did we close", "any no-shows", "add this prospect", "text Sam back".
+description: Works a client's CRM through the Agency Autopilot connector. HighLevel in full — who is waiting on a reply, pipeline and won-work numbers for a period, appointments booked, cancelled or no-showed, finding contacts, and (when the agency has enabled writes) creating prospects, moving opportunities, adding notes and sending one email or SMS to one existing contact; HubSpot, Pipedrive and Zoho CRM for leads and won work (read-only). Use for "who is waiting on us", "how many leads came in this month", "what did we close", "any no-shows", "add this prospect", "text Sam back".
 ---
 
 # CRM follow-up (HighLevel)
@@ -15,7 +15,10 @@ description: Works a client's HighLevel CRM through the Agency Autopilot connect
 - Appointments: `highlevel_calendars`, then `highlevel_appointments` for the period — booked, cancelled, no-show.
 - Contacts: `highlevel_find_contact` by name, email or phone.
 
-## Writes (writes switch on)
+## HubSpot, Pipedrive or Zoho CRM
+A client whose CRM is HubSpot, Pipedrive or Zoho CRM is connected on the dashboard. `crm_summary` gives new leads, deals created, won and lost, and the value of won work over a period. It is read-only: no messages, notes or stage changes in those CRMs. For HighLevel use the tools above and below.
+
+## Writes (HighLevel, writes switch on)
 Each write previews first and applies only on `confirm: true` after an explicit yes.
 - `highlevel_create_prospect` — checks for an existing match by email or phone and refuses to duplicate unless the person confirms it is a different individual.
 - `highlevel_create_opportunity`, `highlevel_update_opportunity` (stage, status, value).
