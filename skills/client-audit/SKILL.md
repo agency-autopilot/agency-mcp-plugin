@@ -37,7 +37,7 @@ It accepts only items the audit flags at that moment, so a term it lists under `
 - More budget for a campaign that converts and runs out: `ads_campaign_state`, then `ads_set_campaign_budget`. This spends more money; ask first.
 - Missing extensions: `ads_add_extensions`, with wording the person approves.
 - A Meta campaign spending without leads: `meta_set_campaign_status` to pause it. A traffic or awareness campaign is not expected to produce leads; check what it is for before proposing a pause.
-- Ad fatigue on Meta: new creative is uploaded in Meta Ads Manager; say so.
+- Ad fatigue on Meta: write new ads and add them with `meta_create_ad` (paused, previewed), or refresh a tired ad's text with `meta_update_ad`; see the `meta-ads-manager` skill.
 - Rankings between 5 and 20, and low click-through titles: `wp_get_post` then `wp_set_seo` on the page behind the query.
 - Leads not measured in Analytics: `ga4_create_key_event`, then `wp_tracking_status` (WordPress) or `gtm_tracking_status` (any site with Tag Manager).
 - Website areas (`site_tracking`, `site_on_page`, `site_health`) come from a read of the live site, any builder; `site_check` on the URL gives the page-by-page detail behind them. When the weekly site health ran in the last 8 days, speed comes from it (every money page, with causes) and two more areas appear: `site_indexing` (pages that matter that Google hasn't indexed) and `business_profile` (replies, posting, review gap, map position). Quote the cause with the fix, not just the score.

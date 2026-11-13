@@ -1,6 +1,6 @@
 ---
 name: google-ads-manager
-description: Manages a client's Google Ads through the Agency Autopilot connector — performance reports, search-term hygiene, negative keywords, budgets, bidding strategies, conversion tracking set-up, extensions (sitelinks, callouts, snippets, call assets), pausing or enabling, and building new search campaigns with ad groups, keywords and responsive search ads. Use for "how are the ads doing", "what did we spend", "add negatives", "raise the budget", "pause that campaign", "build a campaign for X". Every write is validated by Google and previewed before it applies. Requires the Google Ads tools on the connector.
+description: Manages a client's Google Ads through the Agency Autopilot connector — performance reports, search-term hygiene, negative keywords, budgets, bidding strategies, conversion tracking set-up, extensions (sitelinks, callouts, snippets, call assets), pausing or enabling, building new search campaigns with ad groups, keywords and responsive search ads, Demand Gen campaigns (YouTube, Discover, Gmail) with image or video ads, changing an ad's landing page, and the free waste scan across every account. Use for "how are the ads doing", "what did we spend", "add negatives", "raise the budget", "pause that campaign", "build a campaign for X", "where is our ad money being wasted", "run the waste scan". Every write is validated by Google and previewed before it applies. Requires the Google Ads tools on the connector.
 ---
 
 # Google Ads management
@@ -16,6 +16,9 @@ description: Manages a client's Google Ads through the Agency Autopilot connecto
 - Keywords: `FROM keyword_view` with `ad_group_criterion.keyword.text, ad_group_criterion.keyword.match_type, metrics.*`.
 - State of one campaign, including whether its budget is shared: `ads_campaign_state`.
 Report spend, clicks, conversions and cost per conversion; then the three search terms wasting the most money and the three earning the most.
+
+## The waste scan — every account at once
+`ads_waste_scan` checks every Google Ads account the agency's logins reach (manager accounts' clients included, up to 15 with spend), no client needed. Per account: how much of the last 30 days' spend went to searches that never converted and are plainly not buyers (jobs, DIY, plans) or cost more than a lead costs that account (judged only with 3+ conversions), plus Display inside Search campaigns, and the fixes (negatives to add, out-of-area clicks, disapproved ads, auto-applied recommendations, broken tracking). An account whose tracking records nothing is not judged; say so rather than calling it clean. It runs in the background on first connect; `refresh: true` runs it again. Use it for "where is our money going", a new agency's first look, or before a pitch to a client running their own ads. Fix per account with the steps below (negatives previewed first).
 
 ## Changes — preview, confirm, apply
 Every write tool runs as a validated preview unless `confirm: true`. Show the preview, get an explicit yes, then call again with `confirm: true`.
@@ -64,6 +67,14 @@ Every campaign should start on a **dedicated landing page**: one service, the ar
 4. `ads_add_negative_keywords` with the informational list.
 5. `ads_add_extensions`: sitelinks, callouts, a structured snippet and the call asset.
 6. Tell the person the campaign is paused and what must be checked before enabling: conversion tracking (`ads_list_conversion_actions`), phone number and landing pages. `ads_set_campaign_status` with ENABLED returns `landing_pages`, every page the ads and sitelinks land on: show them and ask whether they look good, offer to change any, and confirm on their yes.
+
+## Demand Gen (YouTube, Discover, Gmail, Display)
+- `ads_create_demand_gen_campaign` builds the budget, campaign, ad group with its locations and the first image or video ad in one step, created **paused**. The preview sends the exact request to Google to check; show the budget, its monthly equivalent, the locations and the ad word for word, then confirm on a yes.
+- Videos must already be on YouTube. Add more ads with `ads_create_demand_gen_ad` (paused, previewed).
+- Demand Gen finds people before they search; judge it on leads from the landing page, not clicks, and keep it smaller than Search for a local service business until it proves itself.
+
+## Changing where an ad sends people
+`ads_set_ad_url` changes an existing ad's landing page (Search, Demand Gen and other types Google allows); the ad keeps its history. Find `ad_id` with an `ads_report` query on `ad_group_ad`, run `landing_evidence` first, preview, then confirm.
 
 ## Rules
 - Never enable spend without an explicit instruction that names the campaign.
